@@ -1,0 +1,22 @@
+<header class="headerhome" >
+    <h1>Portfolio maker</h1>
+    <section class="menu-home">
+        <ul class="menu-list-home">
+            <li class="active-home"> <a href="{% url "UrlsHomePage" %}"> | HOME | </a></li>
+
+            {% if request.user.is_authenticated %}
+            <li><a href="{% url "app_portfolios:UrlsEditPortfolio" %}"> My Portfolio </a></li>
+            <li> <a href="{% url "app_users:UrlsLogout" %}"> Logout </a></li>
+
+            {% else %}
+                <li id="loginbtn" onclick="login()" > <a href="{% url "app_users:UrlsLogin" %}"> login </a></li>
+                <li id="registerbtn" onclick="register()"> <a href="{% url "app_users:UrlsRegister" %}"> signup</a></li>
+            {% endif %}
+        </ul>
+
+        <button>
+            <i class="fas fa-times"></i>
+            <i class="fas fa-bars"></i>
+        </button>
+    </section>
+</header>

@@ -1,0 +1,36 @@
+{% extends "sharing/main_layout.html" %}
+{% load static %}
+
+{% block extra_link %}
+    <link rel="stylesheet" href="{% static "" %}css/login-style.css">
+{% endblock %}
+
+{% block content %}
+  <div class="wrapper">
+  <!-- formbox -->
+    <form name="form-login" class="form-box" method="post">
+      <!-- login -->
+      <div class="login-container" id="login">
+        <div class="top">
+          <span>Don't have an Account?<a href="{% url "app_users:UrlsRegister" %}">Sign Up</a></span>
+          <header> Login</header>
+            {% if input_error %}
+                <span style="color: crimson"> Invalid inputs </span>
+            {% endif %}
+        </div>
+          {% csrf_token %}
+          <div class="input-box">
+            <input name="email" type="text" class="input-field" placeholder="username">
+            <i class="fa-solid fa-user"></i>
+          </div>
+          <div class="input-box">
+            <input name="password" type="password" class="input-field" placeholder="password">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+          <div class="input-box">
+            <input type="submit" class="submit" placeholder="Sign In">
+          </div>
+      </div>
+    </form>
+  </div>
+{% endblock %}

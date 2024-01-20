@@ -1,0 +1,51 @@
+{% extends "sharing/main_layout.html" %}
+{% load static %}
+
+{% block extra_link %}
+    <link rel="stylesheet" href="{% static "" %}css/login-style.css">
+{% endblock %}
+
+{% block content %}
+
+  <div class="wrapper">
+  <!-- formbox -->
+    <div class="form-box">
+      <!-- login -->
+
+      <!-- signup -->
+            <div class="login-container" >
+                <form method="post">
+                    {% csrf_token %}
+                <div class="top">
+                  <span>Have an Account?<a href="{% url "app_users:UrlsLogin" %}">Login</a></span>
+                  <header>Register</header>
+
+                    {% if invalid_input_error %}
+                        <span style="color: crimson"> Invalid format or empty fields </span>
+                    {% elif already_exist_error %}
+                        <span style="color: crimson">this email already created an account</span>
+                    {% elif pass_match_error %}
+                        <span style="color: crimson"> passwords didn't match </span>
+                    {% endif %}
+                </div>
+                  <div class="input-box">
+                    <input name ="email" type="text" class="input-field" placeholder="email">
+                    <i class="fa-solid fa-envelope"></i>
+                  </div>
+                  <div class="input-box">
+                    <input name="password" type="password" class="input-field" placeholder="password">
+                    <i class="fa-solid fa-lock"></i>
+                  </div>
+                  <div class="input-box">
+                    <input name="re-password" type="password" class="input-field" placeholder="repeat password">
+                    <i class="fa-solid fa-lock"></i>
+                  </div>
+                  <div class="input-box">
+                    <input type="submit" class="submit" placeholder="register">
+                  </div>
+                </form>
+            </div>
+    </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% include "sharing/main_layout_head.html" %}
+        {% block extra_link %}{% endblock %}
+    </head>
+    <body>
+    {% include "sharing/main_layout_header.html" %}
+
+    {% block content %}{% endblock %}
+
+
+
+    </body>
+
+    {% block footer_extra_script %}{% endblock %}
+
+</html>

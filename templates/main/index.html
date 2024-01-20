@@ -1,0 +1,32 @@
+{% extends "sharing/main_layout.html" %}
+{% load static %}
+
+{% block extra_link %}
+    <link rel="stylesheet" href="{% static "" %}css/stylehome.css">
+{% endblock %}
+
+{% block content %}
+    <section class="main-home">
+        <section class="left-home">
+            <p class="title-home"> Make Free</p>
+            <p class="msg-home"> Portfolio maker helps you get hired at top companies</p>
+      <a href="portfolio.html" class="ctn-home">Make Your Portfolio</a>
+        </section>
+        <section class="right-home">
+            <img src="{% static "" %}images/home-img.jpg" alt="resume image">
+
+        </section>
+
+    </section>
+{% endblock %}
+
+
+{% block footer_extra_script %}
+     <script >
+        let menu = document.querySelector('.menu-home');
+        let menubtn = document.querySelector('.menu-home button');
+        menubtn.addEventListener('click',()=>{
+        menu.classList.toggle('opened')
+        })
+     </script>
+{% endblock %}
