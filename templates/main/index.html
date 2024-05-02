@@ -10,7 +10,9 @@
         <section class="left-home">
             <p class="title-home"> Make Free</p>
             <p class="msg-home"> Portfolio maker helps you get hired at top companies</p>
-      <a href="portfolio.html" class="ctn-home">Make Your Portfolio</a>
+
+            <a href="{% url "app_portfolios:UrlsEditPortfolio" %}" class="ctn-home">Make Your Portfolio</a>
+
         </section>
         <section class="right-home">
             <img src="{% static "" %}images/home-img.jpg" alt="resume image">

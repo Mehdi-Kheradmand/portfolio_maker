@@ -20,7 +20,7 @@
               <div class="portfolio">
                 <span>Your portfolio Address: </span>
 
-                  <a href="#">http://127.0.0.1:8000/pf/dashboard#servicesashboard#services</a>
+                  <a href="{{ portfolio_link }}">{{ portfolio_link }}</a>
             </div>
             <div class="nav-toggler">
                 <span></span>
@@ -28,7 +28,6 @@
             <ul class="nav">
                 <li><a href="#home" class="active"><i class="fa fa-home"></i> Home</a></li>
                 <li><a href="#about"><i class="fa fa-user"></i> About</a></li>
-                <li><a href="#services"><i class="fa fa-list"></i> Services</a></li>
                 <li><a href="#portfolio"><i class="fa fa-briefcase"></i> Portfolio</a></li>
                 <li><a href="#contact"><i class="fa fa-comments"></i> contact </a></li>
             </ul>
@@ -46,30 +45,31 @@
                                     complete your information!
                                 </h2>
                             </div>
-                            <form action="*" id="userform" class="userform">
+                            <form method="post" id="userform" class="userform">
+                                {% csrf_token %}
+                                <input type="hidden" name="post-url" id=post-url" value="{{ post_url }}">
                                 <div class="info">
-                                    <label for="name">your name: </label>
-                                    <input type="text" class="input-box" placeholder="Enter your name">
+                                    <label for="first-name">First name: </label>
+                                    <input type="text" class="input-box" placeholder="Enter your name" name="first-name" id="first-name">
                                 </div>
                                 <div class="info">
-                                    <label for="img">Select image:</label>
-                                    <input type="file" name="images" id="images" required="required"
-                                        multiple="multiple" />
-                                </div>
-
-                                <div class="info">
-                                    <label for="skill">your skill title: </label>
-                                    <input type="text" class="input-box" placeholder="Enter your skill">
+                                    <label for="last-name">Last name: </label>
+                                    <input type="text" class="input-box" placeholder="Enter your name" name="last-name" id="last-name">
                                 </div>
                                 <div class="info">
-                                    <label for="skill">introduce yourself: </label>
-                                    <textarea rows="4" cols="50" name="comment" form="usrform"
-                                        class="description-box"> </textarea>
+                                    <label for="profile-image">Select image:</label>
+                                    <input type="file" name="profile-image" id="profile-image"/>
                                 </div>
+                                <div class="info">
+                                    <label for="user-skill-title">your skill title: </label>
+                                    <input type="text" class="input-box" name="user-skill-title" id="user-skill-title" placeholder="Enter your skill">
+                                </div>
+                                <div class="info">
+                                    <label for="introduce">introduce yourself: </label>
+                                    <textarea rows="4" cols="50" name="introduce" id="introduce" form="usrform" class="description-box"> </textarea>
+                                </div>
+                                <button type="button" id="btn-save-home" class="btn"> Save </button>
                             </form>
-
-                            <input type="submit" class="btn">
-                            <span class=""></span>
                         </div>
                     </div>
                 </div>
@@ -91,15 +91,13 @@
 
                                     <form action="*" id="userjob" class="userform">
                                         <div class="info">
-                                            <label for="name">position/title : </label>
-                                            <input type="text" class="input-box"
-                                                placeholder="for example: backend developer">
+                                            <label for="about-me-title">position/title : </label>
+                                            <input type="text" class="input-box" id="about-me-title" name="about-me-title" placeholder="for example: backend developer">
                                         </div>
 
                                         <div class="info">
-                                            <label for="skill">Work Experience: </label>
-                                            <textarea rows="4" cols="50" name="comment" form="usrform"
-                                                class="description-box"> </textarea>
+                                            <label for="work-experience">Work Experience: </label>
+                                            <textarea rows="4" cols="50" name="work-experience" id="work-experience" form="usrform" class="description-box"> </textarea>
                                         </div>
                                     </form>
                                 </div>
@@ -108,26 +106,22 @@
                                 <div class="personal-info padd-15">
                                     <div class="row padd-15">
                                         <div class="info-item ">
-                                            <p>Birthday :
+                                            <p>Birthday : (m/d/Y)
                                                 <input type="date" id="birthday" name="birthday">
                                             </p>
                                         </div>
 
                                         <div class="info-item">
-                                            <p>Website : <input type="text" class="input-box"
-                                                    placeholder="www.example.com"></p>
+                                            <label for="work-experience">Website : </label>
+                                            <input type="text" class="input-box" id="website" name="website" placeholder="www.example.com">
                                         </div>
                                         <div class="info-item">
-                                            <p>Email : <input type="text" class="input-box"
-                                                    placeholder="example@example.com"></p>
+                                            <label for="work-experience">Email : </label>
+                                            <input type="text" class="input-box" id="email" name="email" placeholder="example@example.com">
                                         </div>
                                         <div class="info-item">
-                                            <p>Degree : <input type="text" class="input-box" placeholder="BA"></p>
-                                        </div>
-                                        <div class="info-item">
-                                            <p>Freelance : <input type="text" class="input-box" placeholder="Available / no,I'm employer"></p>
-
-
+                                            <label for="work-experience">Freelance : </label>
+                                                <input type="text" class="input-box" name="freelance" id="freelance" placeholder="Available / no,I'm employer">
                                         </div>
 
                                     </div>
@@ -137,7 +131,7 @@
                                 <div class="skills padd-15">
                                     <div class="row">
                                         <div class="skill-item padd-15">
-                                            <h5>your Skill</h5>
+                                            <h5>your Skills</h5>
                                             <input type="text" id="textInput" class="input-box" placeholder="Enter text">
                                             <input type="number" id="percentInput" class="input-box" placeholder="for example: 80%">
                                             <button id="addButton" class="btn">Add</button>
@@ -151,69 +145,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="education padd-15">
-                                    <h3 class="title">Education</h3>
-                                    <div class="row">
-                                        <div class="timeline-box padd-15">
-                                            <div class="timeline shadow-dark">
 
-                                                    <form id="myForm">
-                                                        <label for="title">Title:</label>
-                                                        <input type="text" id="title" class="input-box" required placeholder=" your title Education">
-                                                        <br>
-                                                        <label for="startDate">Start Date:</label>
-                                                        <input type="date" class="input-box" id="startDate" required>
-                                                        <br>
-                                                        <label for="endDate">End Date:</label>
-                                                        <input class="input-box"t type="date" id="endDate" required>
-                                                        <br>
-                                                        <label for="description">Description:</label>
-                                                        <textarea id="description"  class="description-box" required></textarea>
-                                                        <br>
-                                                        <button type="button" class="btn " onclick="addEntry()">+</button>
-                                                      </form>
-
-                                                      <ul id="entriesList"></ul>
-
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="experience padd-15">
-                                    <h3 class="title">Experience</h3>
-                                    <div class="row">
-                                        <div class="timeline-box padd-15">
-                                            <div class="timeline shadow-dark">
-                                                <form id="myForm">
-                                                    <label for="title">Title:</label>
-                                                    <input type="text" id="title" class="input-box" required placeholder=" your title Education">
-                                                    <br>
-                                                    <label for="startDate">Start Date:</label>
-                                                    <input type="date" class="input-box" id="startDate" required>
-                                                    <br>
-                                                    <label for="endDate">End Date:</label>
-                                                    <input class="input-box"t type="date" id="endDate" required>
-                                                    <br>
-                                                    <label for="description">Description:</label>
-                                                    <textarea id="description"  class="description-box" required></textarea>
-                                                    <br>
-                                                    <button type="button" class="btn " onclick="addEntry()">+</button>
-                                                  </form>
-
-                                                  <ul id="entriesList"></ul>
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="row padd-15">
                                 <div class="buttons ">
-                                    <input type="submit" class="btn hire-me" value="Submit">
+                                    <input type="button" class="btn hire-me" value="Save" id="btn-save-about" name="btn-save-about">
                                 </div>
                             </div>
                         </div>
@@ -223,102 +158,7 @@
 
             </section>
 
-            <!-- Service sevtion -->
-            <section class="Service section" id="services">
-                <div class="container">
-                    <div class="row">
-                        <div class="section-title padd-15">
-                            <h2>Services</h2>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="service-item padd-15">
-                            <div class="service-item-inner">
-                                <div class="icon">
-                                    <i class="fa fa-mobile-alt"></i>
-                                </div>
-                                <h4>Web Developer</h4>
-                                <P>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quasi quis maxime ea ad
-                                    ipsa
-                                    voluptates rem sit ducimus, mollitia animi architecto eum odit ipsum excepturi ab
-                                    nihil?
-                                    Aliquid, atque illo!</P>
-                            </div>
-                        </div>
-
-                        <div class="service-item padd-15">
-                            <div class="service-item-inner">
-                                <div class="icon">
-                                    <i class="fa fa-laptop-code"></i>
-                                </div>
-                                <h4>Web Developer</h4>
-                                <P>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quasi quis maxime ea ad
-                                    ipsa
-                                    voluptates rem sit ducimus, mollitia animi architecto eum odit ipsum excepturi ab
-                                    nihil?
-                                    Aliquid, atque illo!</P>
-                            </div>
-                        </div>
-
-                        <div class="service-item padd-15">
-                            <div class="service-item-inner">
-                                <div class="icon">
-                                    <i class="fa fa-palette"></i>
-                                </div>
-                                <h4>Web Developer</h4>
-                                <P>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quasi quis maxime ea ad
-                                    ipsa
-                                    voluptates rem sit ducimus, mollitia animi architecto eum odit ipsum excepturi ab
-                                    nihil?
-                                    Aliquid, atque illo!</P>
-                            </div>
-                        </div>
-                        <div class="service-item padd-15">
-                            <div class="service-item-inner">
-                                <div class="icon">
-                                    <i class="fa fa-code"></i>
-                                </div>
-                                <h4>Web Developer</h4>
-                                <P>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quasi quis maxime ea ad
-                                    ipsa
-                                    voluptates rem sit ducimus, mollitia animi architecto eum odit ipsum excepturi ab
-                                    nihil?
-                                    Aliquid, atque illo!</P>
-                            </div>
-                        </div>
-                        <div class="service-item padd-15">
-                            <div class="service-item-inner">
-                                <div class="icon">
-                                    <i class="fa fa-search"></i>
-                                </div>
-                                <h4>Web Developer</h4>
-                                <P>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quasi quis maxime ea ad
-                                    ipsa
-                                    voluptates rem sit ducimus, mollitia animi architecto eum odit ipsum excepturi ab
-                                    nihil?
-                                    Aliquid, atque illo!</P>
-                            </div>
-                        </div>
-                        <div class="service-item padd-15">
-                            <div class="service-item-inner">
-                                <div class="icon">
-                                    <i class="fa fa-bullhorn"></i>
-                                </div>
-                                <h4>Web Developer</h4>
-                                <P>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quasi quis maxime ea ad
-                                    ipsa
-                                    voluptates rem sit ducimus, mollitia animi architecto eum odit ipsum excepturi ab
-                                    nihil?
-                                    Aliquid, atque illo!</P>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </section>
-
-            <!-- protfolio section -->
+            <!-- portfolio section -->
             <section class="portfolio section" id="portfolio">
                 <div class="container">
                     <div class="row">
@@ -353,7 +193,7 @@
                         </div>
  <div class="row padd-15">
                             <div class="buttons ">
-                                <input type="submit" class="btn hire-me" value="Submit">
+                                <input type="submit" class="btn hire-me" value="Save">
                             </div>
                         </div>
                     </div>
@@ -373,31 +213,28 @@
                     <div class="row">
                         <div class="contact-info-item padd-15">
                             <div class="icon"> <i class="fa fa-phone"></i></div>
-                            <h4>Call Us On</h4>
-                            <input type="text" class="input-box"
-                            placeholder="+98 123456789">
+                            <h4>Call Me On</h4>
+                            <input type="text" class="input-box" id="phone" name="phone" placeholder="+98 123456789">
                         </div>
                         <div class="contact-info-item padd-15">
-                            <div class="icon"> <i class="fa fa-map-marker-alt"></i></div>
-                            <h4>office</h4>
-                            <input type="text" class="input-box"
-                                                    placeholder="location">
+                            <div class="icon"> <i class="fa fa-brands fa-linkedin"></i></div>
+                            <h4>Linkedin</h4>
+                            <input type="text" class="input-box" id="linkedin" name="linkedin" placeholder="Linkedin">
                         </div>
                         <div class="contact-info-item padd-15">
                             <div class="icon"> <i class="fa fa-envelope"></i></div>
                             <h4>Email </h4>
-                            <input type="text" class="input-box"
-                                                    placeholder="example@example.com">
+                            <input type="text" class="input-box" id="about-email" name="about-email" placeholder="example@example.com">
                         </div>
                         <div class="contact-info-item padd-15">
-                            <div class="icon"> <i class="fa fa-globe-europe"></i></div>
-                            <h4>Website</h4>
-                            <input type="text" class="input-box"
-                                                    placeholder="www.example.com">
+                            <div class="icon"> <i class="fa fa-brands fa-square-instagram"></i></div>
+                            <h4>Instagram</h4>
+                            <input type="text" class="input-box" id="instagram" name="instagram" placeholder="www.example.com">
                         </div>
                     </div>
 
                 </div>
+                   <input type="button" class="btn hire-me" value="Save" name="btn-save-contact" id="btn-save-contact">
             </section>
         </div>
 </div>
@@ -426,4 +263,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.16/typed.umd.js" integrity="sha512-+2pW8xXU/rNr7VS+H62aqapfRpqFwnSQh9ap6THjsm41AxgA0MhFRtfrABS+Lx2KHJn82UOrnBKhjZOXpom2LQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{% static "" %}js/script.js"></script>
     <script src="{% static "" %}js/Style-switcher.js"></script>
+    <script src="{% static "" %}js/jquery-3.7.1.min.js"></script>
+    <script src="{% static "" %}js/ajax-dashboard.js"></script>
 {% endblock %}

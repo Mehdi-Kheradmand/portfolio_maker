@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
+from .models import UserAdditional
+from portfolio_maker.tools import email_to_url
 import re
 
 
@@ -59,8 +61,23 @@ def register_view(req):
         new_user_creator: User = User.objects.create_user(
             username=received_email,
             password=received_password,
+            email=received_email,
         )
         new_user_creator.save()
+
+        # find unique portfolio link
+        portfolio_link = email_to_url(received_email, add_random_num=True)
+        q = UserAdditional.objects.filter(portfolio_link=portfolio_link)
+        while q.count() != 0:
+            q = UserAdditional.objects.filter(portfolio_link=portfolio_link)
+
+        # create user additional
+        additional_creator = UserAdditional.objects.create(
+            owner_id=new_user_creator.id,
+            portfolio_link=portfolio_link,
+        )
+        additional_creator.save()
+
         login(request=req, user=new_user_creator)
         return redirect("UrlsHomePage")
     else:
